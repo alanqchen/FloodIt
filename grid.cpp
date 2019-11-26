@@ -52,7 +52,7 @@ bool Grid::isComplete() {
     bool result = true;
     int size = checkVect.size();
     LCD.WriteLine(size);
-    if(checkVect.size() != width*width)
+    if(checkVect.size() != width*height)
         result = false;
     while(!checkVect.empty()) {
         Tile* t = checkVect.pop_back();
