@@ -6,7 +6,7 @@
 
 class Grid {
 public:
-    Grid(int w, int numColors, int numTries);
+    Grid(int w, int h, int numColors, int numTries);
     int getWidth();
     Tile* getTile(int row, int col);
     int getMaxTries();
@@ -19,6 +19,7 @@ public:
 private:
     Tile** arr;
     int width;
+    int height;
     int tries;
     int maxTries;
     VectorLight<Tile*> checkVect; // please work

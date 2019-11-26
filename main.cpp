@@ -5,25 +5,25 @@
 #include "grid.h"
 
 
-int FloodIt(int width, int numColors) {
+int FloodIt(int width, int height, int numColors) {
     float x = -1.0;
     float y = -1.0;
     int row;
     int col;
     bool complete = false;
     // create grid
-    Grid grid(width, numColors, 18);
+    Grid grid(width, height, numColors, 18);
     while(!complete) {
         // Print grid
         grid.print();
         // Wait for user touch
         while(!LCD.Touch(&x, &y) && !((int)x > 70 && (int)x < 251 && (int)y > 25 && (int)y < 206));
-        int row =(((int)y-1 - 25) - (((int)y-1 - 25) % (180/width)))/(180/width); // This may go wrong
-        int col = (((int)x-1 - 70) - (((int)x-1 - 70) % (180/width)))/(180/width);
+        int row =(((int)y-1 - 25) - (((int)y-1 - 25) % (180/height)))/(180/height); // This may go wrong
+        int col = (((int)x-1 - (160-(((180/height)*width)/2))) - (((int)x-1 - (160-(((180/height)*width)/2))) % (180/height)))/(180/height);
         //LCD.WriteLine(row);
         //LCD.WriteLine(col);
         int touchColor = grid.getTile(row, col)->getColor();
-        LCD.WriteLine(touchColor);
+        //LCD.WriteLine(touchColor);
         if(touchColor != grid.getTile(0, 0)->getColor()) { // Check if color is different
             grid.setTries(grid.getTries()+1);
             grid.updateColors(grid.getTile(0, 0), grid.getTile(0, 0)->getColor(), touchColor);
@@ -58,7 +58,7 @@ int main(void)
             Sleep(2.0);
             LCD.Clear(FEHLCD::White);
             // Have color number/grid size/num steps selection in the future
-            FloodIt(9, 4);
+            FloodIt(10, 6, 4);
         }
     }
     return 0;

@@ -7,16 +7,17 @@
 
 #include <stdlib.h>
 
-Grid::Grid(int w, int numColors, int numTries) {
+Grid::Grid(int w, int h, int numColors, int numTries) {
     int colorList[10] = {FEHLCD::Scarlet,DARKGREEN,DARKTURQUOISE,PURPLE,CHOCOLATE,GOLD,KHAKI,LIGHTGREEN,LAWNGREEN,ORANGE};
     width = w;
+    height = h;
     maxTries = numTries;
     tries = 0;
-    arr = new Tile*[width];
-    for(int i = 0; i < width; i++) {
+    arr = new Tile*[height];
+    for(int i = 0; i < height; i++) {
         arr[i] = new Tile[width];
     }
-    for(int i = 0; i < width; i++) {
+    for(int i = 0; i < height; i++) {
         for(int j = 0; j < width; j++) {
             int colorIndex = rand() % numColors; // 0 to numColors-1
             arr[i][j].setColor(colorList[colorIndex]);
@@ -85,12 +86,12 @@ void Grid::updateColors(Tile* T, int startColor, int newColor) {
 }
 
 void Grid::print() {
-    LCD.SetFontColor(WHITE);
-    LCD.DrawRectangle(70, 25, 182, 182);
-    for(int i = 0; i < width; i++) {
+    LCD.SetFontColor(BLACK);
+    LCD.DrawRectangle((160-(((180/height)*width)/2)), 25, ((180/height)*width)+1, 181);
+    for(int i = 0; i < height; i++) {
         for(int j = 0; j < width; j++) {
             LCD.SetFontColor(getTile(i, j)->getColor());
-            LCD.FillRectangle(71+(j*180/width),26+(i*180/width), 180/width, 180/width); // Please work
+            LCD.FillRectangle((160-(((180/height)*width)/2))+1+(j*180/height),26+(i*180/height), 180/height, 180/height); // Please work
         }
     }
     if(tries/10 == 0)
