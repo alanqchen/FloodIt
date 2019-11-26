@@ -44,7 +44,7 @@ int main(void)
 
     float x,y, x_trash, y_trash;
     bool quit = false;
-
+    // This is a test commit
 
     LCD.Clear( FEHLCD::Black );
     LCD.SetFontColor( FEHLCD::White );
