@@ -20,15 +20,18 @@ int FloodIt(int width, int numColors) {
         while(!LCD.Touch(&x, &y) && !((int)x > 70 && (int)x < 251 && (int)y > 25 && (int)y < 206));
         int row =(((int)y-1 - 25) - (((int)y-1 - 25) % (180/width)))/(180/width); // This may go wrong
         int col = (((int)x-1 - 70) - (((int)x-1 - 70) % (180/width)))/(180/width);
-        LCD.WriteLine(row);
-        LCD.WriteLine(col);
+        //LCD.WriteLine(row);
+        //LCD.WriteLine(col);
         int touchColor = grid.getTile(row, col)->getColor();
+        LCD.WriteLine(touchColor);
         if(touchColor != grid.getTile(0, 0)->getColor()) { // Check if color is different
             grid.setTries(grid.getTries()+1);
             grid.updateColors(grid.getTile(0, 0), grid.getTile(0, 0)->getColor(), touchColor);
             complete = grid.isComplete();
         }
     }
+    LCD.WriteLine("YOU WIN!");
+    Sleep(5.0);
     LCD.Clear(FEHLCD::White);
 }
 
@@ -55,7 +58,7 @@ int main(void)
             Sleep(2.0);
             LCD.Clear(FEHLCD::White);
             // Have color number/grid size/num steps selection in the future
-            FloodIt(6, 4);
+            FloodIt(9, 4);
         }
     }
     return 0;

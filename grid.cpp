@@ -49,6 +49,8 @@ void Grid::setTries(int numTries) {
 
 bool Grid::isComplete() {
     bool result = true;
+    int size = checkVect.size();
+    LCD.WriteLine(size);
     if(checkVect.size() != width*width)
         result = false;
     while(!checkVect.empty()) {
@@ -88,7 +90,7 @@ void Grid::print() {
     for(int i = 0; i < width; i++) {
         for(int j = 0; j < width; j++) {
             LCD.SetFontColor(getTile(i, j)->getColor());
-            LCD.FillRectangle(71+(i*180/width),26+(j*180/width), 180/width, 180/width); // Please work
+            LCD.FillRectangle(71+(j*180/width),26+(i*180/width), 180/width, 180/width); // Please work
         }
     }
     if(tries/10 == 0)
