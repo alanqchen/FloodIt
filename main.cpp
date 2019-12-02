@@ -38,7 +38,7 @@ bool FloodIt(int width, int height, int numColors) {
     return false;
 }
 
-int startMenu() {
+void startMenu() {
     Sleep(1.0);
 
     int grid_size = 5, colors = 4;
@@ -58,7 +58,7 @@ int startMenu() {
         while(LCD.Touch(&x, &y));
 
         // if user clicks start
-        if(94 < x & x < 154 & 140 < y & y > 123) {
+        if(94 < x && x < 154 && 140 < y && y > 123) {
             while(player_won) {
                 player_won = FloodIt(grid_size, grid_size, colors);
                 grid_size++;
@@ -66,7 +66,7 @@ int startMenu() {
             }
             scoreboard.newEntry();
             break;
-        } else if(94 < x & x < 210 & 160 < y & y < 143) //if user clicks scoreboard
+        } else if(94 < x && x < 210 && 160 < y && y < 143) //if user clicks scoreboard
         {
             scoreboard.print();
             while(!LCD.Touch(&x, &y));
@@ -92,6 +92,7 @@ int main(void)
 
     LCD.Clear( FEHLCD::Black );
     LCD.SetFontColor( FEHLCD::White );
+    startMenu();
     while(quit != true) {
         LCD.WriteLine("Touch anywhere to play one game");
         // Wait for user touch
