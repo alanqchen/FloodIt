@@ -1,14 +1,16 @@
 #ifndef SCOREBOARD_H
 #define SCOREBOARD_H
 
+#include "vectorlight.h"
+
 class Scoreboard {
     public:
         Scoreboard();
         void print();
         void newEntry(char []);
     private:
-        char top5names[5][3];
-        int top5scores[5];
+        VectorLight <char*> names;
+        VectorLight <int> scores;
 };
 
 #endif // SCOREBOARD_H
