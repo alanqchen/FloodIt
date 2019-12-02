@@ -4,26 +4,30 @@
 #include <FEHSD.h>
 #include "scoreboard.h"
 
-/*
+
 Scoreboard::Scoreboard() {
-    FEHFile *fptr = SD.FOpen("scores.txt", "w+");
     for(int i=0; i<5; i++) {
-        strcpy(top5names[i], "XXX");
-        top5scores[i] = 0;
-        SD.FPrintf(fptr, "%s %i", top5names[i], top5scores[i]);
+        names.push_back("XXX");
+        scores.push_back(0);
     }
-    //Close file
-    SD.FClose(fptr);
 }
 
 void Scoreboard::print() {
+
     for(int i=0; i<5; i++) {
-        LCD.WriteLine("%s\t%d", top5names[i], top5scores[i]);
+        LCD.WriteLine("%s\t%d", names.at(i), scores.at(i));
     }
 }
 
-void Scoreboard::newEntry(char initials[]) {
+void Scoreboard::newEntry() {
+    char name[] = "jack";
+    int score = 5;
 
-
+    for(int i=4; i>=0; i--){
+        if(score > scores.at(i)) {
+            scores.insert(&scores.at(i), score);
+            names.insert(&names.at(i), name);
+        }
+    }
 }
-*/
+
