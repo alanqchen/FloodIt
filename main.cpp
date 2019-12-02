@@ -35,6 +35,48 @@ int FloodIt(int width, int height, int numColors) {
     LCD.Clear(FEHLCD::White);
 }
 
+int startMenu() {
+    Sleep(1.0);
+
+    int grid_size = 5, colors = 4;
+
+    Scoreboard scoreboard();
+    bool player_won = true;
+
+    //write main menu boxes and titles
+    LCD.Clear( FEHLCD::White );
+    LCD.WriteAt("FloodIt!", 94,120);
+    LCD.WriteAt("Start", 94,140);
+    LCD.WriteAt("Scoreboard", 94,160);
+
+    while(true) {
+        // Wait for user touch and release
+        while(!LCD.Touch(&x, &y));
+        while(LCD.Touch(&x, &y));
+
+        // if user clicks start
+        if(94 < x & x < 154 & 140 < y & y > 123) {
+            while(player_won) {
+                player_won = FloodIt(grid_size, grid_size, colors);
+                grid_size++;
+                colors++;
+            }
+            scoreboard.newEntry();
+            break;
+        } else if(94 < x & x < 210 & 160 < y & y < 143) //if user clicks scoreboard
+        {
+            scoreboard.print();
+            while(!LCD.Touch(&x, &y));
+            while(LCD.Touch(&x, &y));
+            LCD.Clear( FEHLCD::White);
+            LCD.WriteAt("FloodIt!", 94,120);
+            LCD.WriteAt("Start", 94,140);
+            LCD.WriteAt("Scoreboard", 94,160);
+            continue;
+        }
+    }
+}
+
 int main(void)
 {
     LCD.WriteLine( "Flood It! v1.1.0" );
