@@ -43,7 +43,7 @@ void startMenu() {
 
     int grid_size = 5, colors = 4;
 
-    Scoreboard scoreboard();
+    Scoreboard scoreboard;
     bool player_won = true;
 
     //write main menu boxes and titles
