@@ -7,7 +7,7 @@ class Scoreboard {
     public:
         Scoreboard();
         void print();
-        void newEntry(char []);
+        void newEntry();
     private:
         VectorLight <char*> names;
         VectorLight <int> scores;

@@ -2,6 +2,8 @@
 #include <LCDColors.h>
 #include <FEHUtility.h>
 #include <FEHSD.h>
+#include "vectorlight.cpp"
+#include "vectorlight.h"
 #include "scoreboard.h"
 
 
@@ -13,10 +15,13 @@ Scoreboard::Scoreboard() {
 }
 
 void Scoreboard::print() {
-
+    float x,y;
+    LCD.Clear();
     for(int i=0; i<5; i++) {
-        LCD.WriteLine("%s\t%d", names.at(i), scores.at(i));
+        LCD.WriteAt(names.at(i), 140, 10+(17*i));
+        LCD.WriteAt(scores.at(i), 200, 10+(17*i));
     }
+    while(!LCD.Touch(&x, &y));
 }
 
 void Scoreboard::newEntry() {

@@ -1,6 +1,7 @@
 #include <FEHLCD.h>
 #include <FEHIO.h>
 #include <FEHUtility.h>
+#include "scoreboard.h"
 #include "tile.h"
 #include "grid.h"
 
@@ -37,49 +38,54 @@ bool FloodIt(int width, int height, int numColors) {
         return true;
     return false;
 }
-/*
+
 void startMenu() {
     Sleep(1.0);
 
     int grid_size = 5, colors = 4;
-
+    float x, y;
     Scoreboard scoreboard;
     bool player_won = true;
 
     //write main menu boxes and titles
     LCD.Clear( FEHLCD::White );
+    LCD.SetFontColor(FEHLCD::Black);
     LCD.WriteAt("FloodIt!", 94,120);
     LCD.WriteAt("Start", 94,140);
-    LCD.WriteAt("Scoreboard", 94,160);
+    LCD.WriteAt("Scoreboard", 94,170);
 
     while(true) {
         // Wait for user touch and release
         while(!LCD.Touch(&x, &y));
-        while(LCD.Touch(&x, &y));
+        //while(LCD.Touch(&x, &y));
 
         // if user clicks start
-        if(94 < x && x < 154 && 140 < y && y > 123) {
+        if(94 < x && x < 154 && 157 > y && y > 140) {
             while(player_won) {
                 player_won = FloodIt(grid_size, grid_size, colors);
                 grid_size++;
                 colors++;
             }
             scoreboard.newEntry();
-            break;
-        } else if(94 < x && x < 210 && 160 < y && y < 143) //if user clicks scoreboard
-        {
-            scoreboard.print();
-            while(!LCD.Touch(&x, &y));
-            while(LCD.Touch(&x, &y));
             LCD.Clear( FEHLCD::White);
             LCD.WriteAt("FloodIt!", 94,120);
             LCD.WriteAt("Start", 94,140);
-            LCD.WriteAt("Scoreboard", 94,160);
+            LCD.WriteAt("Scoreboard", 94,170);
+            while(!LCD.Touch(&x, &y));
+            continue;
+        } else if(94 < x && x < 210 && 170 < y && y < 187) //if user clicks scoreboard
+        {
+            scoreboard.print();
+            LCD.Clear( FEHLCD::White);
+            LCD.WriteAt("FloodIt!", 94,120);
+            LCD.WriteAt("Start", 94,140);
+            LCD.WriteAt("Scoreboard", 94,170);
+            while(!LCD.Touch(&x, &y));
             continue;
         }
     }
 }
-*/
+
 int main(void)
 {
     LCD.WriteLine( "Flood It! v1.1.0" );
@@ -92,7 +98,7 @@ int main(void)
 
     LCD.Clear( FEHLCD::Black );
     LCD.SetFontColor( FEHLCD::White );
-    //startMenu();
+    startMenu();
     while(quit != true) {
         LCD.WriteLine("Touch anywhere to play one game");
         // Wait for user touch

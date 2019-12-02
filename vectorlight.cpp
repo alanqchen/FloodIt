@@ -58,15 +58,15 @@ Type &VectorLight<Type>::operator[](size_t index) {
 // The function automatically checks whether n is within the bounds of valid elements in the vector.
 template <typename Type>
 Type& VectorLight<Type>::at(size_t index) {
-    try {
+    //try {
         if(index >= length) {
-            throw "index out of bounds of vector.";
+            //throw "index out of bounds of vector.";
         }
         return array[index];
-    }
-    catch (int e) {
+    //}
+    //catch (int e) {
         //std::cout << "Error! Exception: " << e << '\n';
-    }
+    //}
 }
 
 // Returns a reference to the last element in the vector.

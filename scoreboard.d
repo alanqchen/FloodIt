@@ -18,7 +18,15 @@
  O:\fehqt\Proteus/EWL/EWL_C/include/cstdarg \
  O:\fehqt\Proteus/EWL/EWL_C/include/va_list.h \
  O:\fehqt\Proteus/EWL/EWL_C/include/arm/stdarg.ARM.h Drivers/ffconf.h \
- Drivers/ffconf.h Drivers/diskio.h Libraries/FEHFile.h ..\/scoreboard.h
+ Drivers/ffconf.h Drivers/diskio.h Libraries/FEHFile.h \
+ ..\/vectorlight.cpp ..\/vectorlight.h \
+ O:\fehqt\Proteus/EWL/EWL_C/include/stdlib.h \
+ O:\fehqt\Proteus/EWL/EWL_C/include/cstdlib \
+ O:\fehqt\Proteus/EWL/EWL_C/include/div_t.h \
+ O:\fehqt\Proteus/EWL/EWL_C/include/null.h \
+ O:\fehqt\Proteus/EWL/EWL_C/include/size_t.h \
+ O:\fehqt\Proteus/EWL/EWL_C/include/ewl_rsize_t.h ..\/vectorlight.h \
+ ..\/scoreboard.h
 
 O:\fehqt\Proteus/EWL/EWL_C++/include/lib_ewl_c++.prefix:
 
@@ -81,5 +89,23 @@ Drivers/ffconf.h:
 Drivers/diskio.h:
 
 Libraries/FEHFile.h:
+
+..\/vectorlight.cpp:
+
+..\/vectorlight.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/stdlib.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/cstdlib:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/div_t.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/null.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/size_t.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/ewl_rsize_t.h:
+
+..\/vectorlight.h:
 
 ..\/scoreboard.h:
