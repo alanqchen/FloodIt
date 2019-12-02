@@ -4,7 +4,7 @@
 #include <FEHSD.h>
 #include "scoreboard.h"
 
-
+/*
 Scoreboard::Scoreboard() {
     FEHFile *fptr = SD.FOpen("scores.txt", "w+");
     for(int i=0; i<5; i++) {
@@ -26,3 +26,4 @@ void Scoreboard::newEntry(char initials[]) {
 
 
 }
+*/

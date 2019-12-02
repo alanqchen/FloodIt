@@ -1,2 +1,2 @@
    text	   data	    bss	    dec	    hex	filename
-  48232	   3436	   7216	  58884	   e604	../FloodIt.elf
+  48528	   3436	   7216	  59180	   e72c	../FloodIt.elf

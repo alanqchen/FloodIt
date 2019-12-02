@@ -37,7 +37,7 @@ bool FloodIt(int width, int height, int numColors) {
         return true;
     return false;
 }
-
+/*
 void startMenu() {
     Sleep(1.0);
 
@@ -79,7 +79,7 @@ void startMenu() {
         }
     }
 }
-
+*/
 int main(void)
 {
     LCD.WriteLine( "Flood It! v1.1.0" );
@@ -92,7 +92,7 @@ int main(void)
 
     LCD.Clear( FEHLCD::Black );
     LCD.SetFontColor( FEHLCD::White );
-    startMenu();
+    //startMenu();
     while(quit != true) {
         LCD.WriteLine("Touch anywhere to play one game");
         // Wait for user touch
@@ -103,7 +103,7 @@ int main(void)
             Sleep(2.0);
             LCD.Clear(FEHLCD::White);
             // Have color number/grid size/num steps selection in the future
-            FloodIt(10, 6, 4);
+            FloodIt(4, 4, 4);
         }
     }
     return 0;

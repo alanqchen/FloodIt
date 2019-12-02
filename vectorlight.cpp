@@ -119,6 +119,30 @@ Type VectorLight<Type>::pop_back() {
     return trash;
 }
 
+// The vector is extended by inserting new elements before the element at the specified position, effectively increasing the container size by the number of elements inserted.
+template <typename Type>
+Type* VectorLight<Type>::insert(Type* pos, Type value) {
+    Type* iterator = begin();
+    int index = 0;
+    int indexNew = 0;
+    Type* newArr = new Type[max_length];
+    while(iterator != end()) {
+        if(iterator == pos) {
+            newArr[indexNew] = value;
+            indexNew++;
+            length++;
+        }
+        newArr[indexNew] = array[index];
+        index++;
+        indexNew++;
+        iterator++;
+    }
+    delete[] array;
+    array = newArr;
+    vector_resize();
+    return pos;
+}
+
 // Removes all elements from the vector (which are destroyed), leaving the container with a size of 0.
 template <typename Type>
 void VectorLight<Type>::clear() {

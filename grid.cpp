@@ -51,17 +51,27 @@ void Grid::setTries(int numTries) {
 bool Grid::isComplete() {
     bool result = true;
     int size = checkVect.size();
-    LCD.WriteLine(size);
-    if(checkVect.size() != width*height)
-        result = false;
+    //LCD.WriteLine(size);
     while(!checkVect.empty()) {
         Tile* t = checkVect.pop_back();
-        int cmpColor = t->getColor();
+        //int cmpColor = t->getColor();
         t->setChecked(false);
-        if(t->getColor() != cmpColor)
-            result = false;
+        //if(t->getColor() != cmpColor)
+            //result = false;
     }
-    return result;
+    int cmpColor = getTile(0, 0)->getColor();
+    LCD.WriteLine(cmpColor);
+    for(int i = 0; i < height; i++) {
+        for(int j = 0; j < width; j++) {
+            LCD.WriteLine(getTile(i, j)->getColor());
+            if(getTile(i, j)->getColor() != cmpColor) {
+                LCD.WriteLine(false);
+                return false;
+            }
+        }
+    }
+    LCD.WriteLine(true);
+    return true;
 }
 
 void Grid::updateColors(Tile* T, int startColor, int newColor) {

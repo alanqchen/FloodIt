@@ -1,3 +1,5 @@
+scoreboard.cpp
+scoreboard.h
 vectorlight.cpp
 vectorlight.h
 tile.cpp
