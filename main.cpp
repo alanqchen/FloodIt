@@ -5,7 +5,7 @@
 #include "grid.h"
 
 
-int FloodIt(int width, int height, int numColors) {
+bool FloodIt(int width, int height, int numColors) {
     float x = -1.0;
     float y = -1.0;
     int row;
@@ -33,6 +33,9 @@ int FloodIt(int width, int height, int numColors) {
     LCD.WriteLine("YOU WIN!");
     Sleep(5.0);
     LCD.Clear(FEHLCD::White);
+    if(grid.getTries() <= grid.getMaxTries())
+        return true;
+    return false;
 }
 
 int main(void)
