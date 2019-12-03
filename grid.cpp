@@ -50,28 +50,26 @@ void Grid::setTries(int numTries) {
 }
 
 bool Grid::isComplete() {
-    bool result = true;
+    // Store check vector size before emptying
     int size = checkVect.size();
-    //LCD.WriteLine(size);
+    // Empty check vector while setting each tile's check flag to false
     while(!checkVect.empty()) {
         Tile* t = checkVect.pop_back();
-        //int cmpColor = t->getColor();
         t->setChecked(false);
-        //if(t->getColor() != cmpColor)
-            //result = false;
     }
     int cmpColor = getTile(0, 0)->getColor();
-    //LCD.WriteLine(cmpColor);
+    // Test for early exit using check vector size
+    if(size != width*height)
+        return false;
     for(int i = 0; i < height; i++) {
         for(int j = 0; j < width; j++) {
-            //LCD.WriteLine(getTile(i, j)->getColor());
             if(getTile(i, j)->getColor() != cmpColor) {
-                //LCD.WriteLine(false);
+                // Return false, a tile has a different color
                 return false;
             }
         }
     }
-    //LCD.WriteLine(true);
+    // Return true, all tiles have the same color
     return true;
 }
 
@@ -85,13 +83,13 @@ void Grid::updateColors(Tile* T, int startColor, int newColor) {
     T->setColor(newColor);
     print(); // might be expensive
     // Bounds checking
-    if(T->getRow()-1 >= 0)
+    if(T->getRow()-1 >= 0 && !arr[T->getRow()-1][T->getCol()].wasChecked())
         updateColors(&arr[T->getRow()-1][T->getCol()], startColor, newColor);
-    if(T->getRow()+1 < width)
+    if(T->getRow()+1 < width && !arr[T->getRow()+1][T->getCol()].wasChecked())
         updateColors(&arr[T->getRow()+1][T->getCol()], startColor, newColor);
-    if(T->getCol()-1 >= 0)
+    if(T->getCol()-1 >= 0 && !arr[T->getRow()][T->getCol()-1].wasChecked())
         updateColors(&arr[T->getRow()][T->getCol()-1], startColor, newColor);
-    if(T->getCol()+1 < width)
+    if(T->getCol()+1 < width && !arr[T->getRow()][T->getCol()+1].wasChecked())
         updateColors(&arr[T->getRow()][T->getCol()+1], startColor, newColor);
     return;
 }

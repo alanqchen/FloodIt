@@ -17,7 +17,7 @@ struct gridSize_struct {
 typedef struct gridSize_struct gridSize;
 
 int calcMaxTries(int rows, int cols, int colors, int level) {
-    return (int)floor(25.0*((rows+cols)*colors)/((28.0)*6))+1+(int)(level/2);
+    return (int)floor(25.0*((rows+cols)*colors)/((28.0)*6))+1+(int)(level/2.5);
 }
 
 // Helper function
@@ -31,6 +31,7 @@ void fillSize(gridSize* sizeArray, int index, int w, int h, int numC) {
 int FloodIt(int width, int height, int numColors, int maxTries) {
     float x = -1.0;
     float y = -1.0;
+    float x_trash, y_trash;
     int row;
     int col;
     bool complete = false;
@@ -41,6 +42,7 @@ int FloodIt(int width, int height, int numColors, int maxTries) {
         grid.print();
         // Wait for user touch
         while(!LCD.Touch(&x, &y) && !((int)x > 70 && (int)x < 251 && (int)y > 25 && (int)y < 206));
+        while(LCD.Touch(&x_trash, &y_trash));
         int row =(((int)y-1 - 25) - (((int)y-1 - 25) % (180/height)))/(180/height); // This may go wrong
         int col = (((int)x-1 - (160-(((180/height)*width)/2))) - (((int)x-1 - (160-(((180/height)*width)/2))) % (180/height)))/(180/height);
         //LCD.WriteLine(row);
@@ -247,8 +249,9 @@ void startMenu() {
 
 int main(void)
 {
-    LCD.Clear( FEHLCD::White );
-    LCD.WriteLine( "Flood It! v1.1.0" );
+    LCD.Clear(FEHLCD::White);
+    LCD.SetFontColor(FEHLCD::Black);
+    LCD.WriteLine("Flood It! v1.3.1");
     Sleep(3.0);
     srand(TimeNow());
     // Display menu
@@ -256,8 +259,8 @@ int main(void)
     float x,y, x_trash, y_trash;
     bool quit = false;
 
-    LCD.Clear( FEHLCD::White );
-    LCD.SetFontColor( FEHLCD::White );
+    LCD.Clear(FEHLCD::White);
+    LCD.SetFontColor(FEHLCD::White);
     startMenu();
     /*
     while(quit != true) {
