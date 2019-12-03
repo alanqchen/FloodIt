@@ -137,7 +137,7 @@ void VectorLight<Type>::vector_resize() {
         for(int i = 0; i < length; i++) {
             newArr[i] = array[i];
         }
-        delete array;
+        delete[] array;
         array = newArr;
     } else if(length < max_length/4) {
         max_length =  max_length / 2;
