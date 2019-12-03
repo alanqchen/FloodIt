@@ -7,37 +7,51 @@
 #include "vectorlight.h"
 #include "scoreboard.h"
 
-
+// Constructor (no params)
 Scoreboard::Scoreboard() {
+    // Open the scores file(don't overwrite). If it doesn't exist, create it
     FEHFile *fptr = SD.FOpen("SCORES.txt","a+");
+    // Test if scores file was just opened
     if(SD.FEof(fptr)) {
-        LCD.WriteLine("File doesn't exist, filling");
+        // Fill file w/ basic information
+        // Set default profile to 'Guest'
         SD.FPrintf(fptr, "Guest\n");
+        // Add empty scoreboard entries
         for(int i=0; i<5; i++)
             SD.FPrintf(fptr, "XXXXX\t%d\n", 0);
     }
+    // Init temporary name variable
     char tempName [6];
+    // Scan first line from file, this is the profile name
     SD.FScanf(fptr, "%s", profile);
+    // Init temporary score variable
     int tempScore;
+    // Loop through 5 entries
     for(int i=0; i<5; i++) {
+        // Reach entry name and score and store in scoreboard arrays
         SD.FScanf(fptr, "%s%d", tempName, &tempScore);
         strcpy(names[i], tempName);
         scores[i] = tempScore;
     }
+    // Find minimum score
     int min = scores[0];
     for(int i=1; i<5; i++) {
         if(scores[i] < min) {
             min = scores[i];
         }
     }
+    // Set minScore to minimum score
     minScore= min;
+    // Close file
     SD.FClose(fptr);
 }
 
+// Get current min score on scoreboard
 int Scoreboard::getMinScore() {
     return minScore;
 }
 
+// Print scoreboard
 void Scoreboard::print() {
     float x,y;
     LCD.Clear();
@@ -54,11 +68,13 @@ void Scoreboard::print() {
     while(LCD.Touch(&x, &y));
 }
 
+// Print profile (footer)
 void Scoreboard::printProfile() {
     LCD.SetFontColor(GRAY);
     LCD.WriteAt(profile, 130, 213);
 }
 
+// Add new entry to scoreboard
 void Scoreboard::newEntry(int score) {
 
     LCD.WriteAt("Congrats!", 106, 20-10);
@@ -104,6 +120,7 @@ void Scoreboard::newEntry(int score) {
         }
     }
     minScore= min;
+    // Close file
     SD.FClose(fptr);
     float x, y;
     LCD.WriteAt("Tap to Continue",70,150);

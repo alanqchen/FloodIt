@@ -5,6 +5,8 @@
  * Barebones vector functionality (think 'unbounded stack').
  * Also no C++11 features :(
  * Made by Alan Chen
+ * NOTE: This is made for any project, so there are some functions here
+ *       that aren't used in Flood-It
  */
 
 #include <stdlib.h>

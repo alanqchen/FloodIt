@@ -19,7 +19,7 @@ typedef struct gridSize_struct gridSize; // typedef struct to make life easier
 
 // Helper function to calculate maximum tries/steps
 int calcMaxTries(int rows, int cols, int colors, int level) {
-    return (int)floor(25.0*((rows+cols)*colors)/((28.0)*6))+1+(int)(level/2.5);
+    return (int)floor(25.0*((rows+cols)*colors)/((28.0)*6))+1+(int)(level/3.0);
 }
 
 // Helper function to fill grid level structs
