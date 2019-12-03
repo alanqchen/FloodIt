@@ -22,7 +22,6 @@ public:
     Type pop_back(); // remove from back
     Type &operator[](size_t); // Returns a reference to the element at position n in the vector
     Type& at(size_t); // Returns a reference to the element at position n in the vector. Also checks if in-bounds
-    Type* insert(Type* pos, Type value);
     Type& front(); // return reference to front
     Type& back(); // return reference to back
     Type* data(); // Give pointer to internal array

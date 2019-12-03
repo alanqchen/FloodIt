@@ -18,12 +18,6 @@ Scoreboard::Scoreboard() {
     }
     char tempName [6];
     SD.FScanf(fptr, "%s", profile);
-    /*
-    if(SD.FEof(fptr)) {
-        for(int i=0; i<5; i++)
-            SD.FPrintf(fptr, "XXXXX\t%d\n", 0);
-    }
-    */
     int tempScore;
     for(int i=0; i<5; i++) {
         SD.FScanf(fptr, "%s%d", tempName, &tempScore);
@@ -59,32 +53,6 @@ void Scoreboard::print() {
     while(!LCD.Touch(&x, &y));
     while(LCD.Touch(&x, &y));
 }
-
-/*
-void Scoreboard::printKeyboard() {
-    LCD.SetFontColor(FEHLCD::Black);
-    char line1 [10] = {'Q','W','E','R','T','Y','U','I','O','P'};
-    char line2 [9] = {'A','S','D','F','G','H','J','K','L'};
-    char line3 [7] = {'Z','X','C','V','B','N','M'};
-    for(int i=0; i<10; i++) {
-        LCD.WriteAt(line1[i], 55+(22*i), 139);
-    }
-    for(int i=0; i<9; i++) {
-        LCD.WriteAt(line1[i], 66+(22*i), 166);
-    }
-    for(int i=0; i<7; i++) {
-        LCD.WriteAt(line1[i], 88+(22*i), 193);
-    }
-    LCD.SetFontColor(DARKGREEN);
-    LCD.FillRectangle(55,101,42,23);
-    LCD.SetFontColor(WHITE);
-    LCD.WriteAt("OK",55+9,101+3);
-    LCD.SetFontColor(DARKORANGE);
-    LCD.FillRectangle(223,101,42,23);
-    LCD.SetFontColor(WHITE);
-    LCD.WriteAt("DEL",223+3,101+3);
-}
-*/
 
 void Scoreboard::printProfile() {
     LCD.SetFontColor(GRAY);
