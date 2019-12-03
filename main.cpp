@@ -85,6 +85,7 @@ void printScoreScreen(bool won, int level, int score, Scoreboard scoreboard) {
     LCD.WriteAt("Tap to Continue",70,150);
     scoreboard.printProfile();
     while(!LCD.Touch(&x, &y));
+    while(LCD.Touch(&x, &y));
 }
 
 void printMenu(Scoreboard scoreboard) {

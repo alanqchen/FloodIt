@@ -50,6 +50,7 @@ void Scoreboard::print() {
     }
     LCD.WriteAt("Tap to Exit",94,215);
     while(!LCD.Touch(&x, &y));
+    while(LCD.Touch(&x, &y));
 }
 
 /*
