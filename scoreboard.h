@@ -7,10 +7,16 @@ class Scoreboard {
     public:
         Scoreboard();
         void print();
-        void newEntry();
+        void printProfile();
+        void newEntry(int score);
+        int getMinScore();
+        char* getProfile();
     private:
-        VectorLight <char*> names;
-        VectorLight <int> scores;
+        void printKeyboard();
+        char profile [5];
+        char names[5][5];
+        int scores[5];
+        int minScore;
 };
 
 #endif // SCOREBOARD_H

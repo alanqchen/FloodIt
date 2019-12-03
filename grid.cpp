@@ -9,6 +9,7 @@
 
 Grid::Grid(int w, int h, int numColors, int numTries) {
     int colorList[10] = {FEHLCD::Scarlet,DARKGREEN,DARKTURQUOISE,PURPLE,CHOCOLATE,GOLD,KHAKI,LIGHTGREEN,LAWNGREEN,ORANGE};
+    srand(TimeNow());
     width = w;
     height = h;
     maxTries = numTries;

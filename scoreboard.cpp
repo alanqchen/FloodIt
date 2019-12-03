@@ -2,37 +2,118 @@
 #include <LCDColors.h>
 #include <FEHUtility.h>
 #include <FEHSD.h>
+#include <string.h>
 #include "vectorlight.cpp"
 #include "vectorlight.h"
 #include "scoreboard.h"
 
 
 Scoreboard::Scoreboard() {
-    for(int i=0; i<5; i++) {
-        names.push_back("XXX");
-        scores.push_back(0);
+    FEHFile *fptr = SD.FOpen("FloodIt/scores.txt","a+");
+    if(SD.FEof(fptr)) {
+        SD.FPrintf(fptr, "Guest");
+        for(int i=0; i<5; i++)
+            SD.FPrintf(fptr, "XXXXX\t%i", 0);
     }
+    char tempName [5];
+    SD.FScanf(fptr, "%s", profile);
+    int tempScore;
+    for(int i=0; i<5; i++) {
+        SD.FScanf(fptr, "%s%d", tempName, &tempScore);
+        strcpy(names[i], tempName);
+        scores[i] = tempScore;
+    }
+    int min = scores[0];
+    for(int i=1; i<5; i++) {
+        if(scores[i] < min) {
+            min = scores[i];
+        }
+    }
+    minScore= min;
+    SD.FClose(fptr);
+}
+
+int Scoreboard::getMinScore() {
+    return minScore;
 }
 
 void Scoreboard::print() {
     float x,y;
     LCD.Clear();
+    LCD.SetFontColor(DARKORANGE);
+    LCD.WriteAt("Scoreboard",100,40);
+    LCD.SetFontColor(FEHLCD::Black);
+    LCD.DrawLine(5,70,314,70);
     for(int i=0; i<5; i++) {
-        LCD.WriteAt(names.at(i), 140, 10+(17*i));
-        LCD.WriteAt(scores.at(i), 200, 10+(17*i));
+       LCD.WriteAt(names[i],98,90+22*i);
+       LCD.WriteAt(scores[i],198,90+22*i);
     }
+    LCD.WriteAt("Tap to Exit",94,215);
     while(!LCD.Touch(&x, &y));
 }
 
-void Scoreboard::newEntry() {
-    char name[] = "jack";
-    int score = 5;
-
-    for(int i=4; i>=0; i--){
-        if(score > scores.at(i)) {
-            scores.insert(&scores.at(i), score);
-            names.insert(&names.at(i), name);
-        }
+/*
+void Scoreboard::printKeyboard() {
+    LCD.SetFontColor(FEHLCD::Black);
+    char line1 [10] = {'Q','W','E','R','T','Y','U','I','O','P'};
+    char line2 [9] = {'A','S','D','F','G','H','J','K','L'};
+    char line3 [7] = {'Z','X','C','V','B','N','M'};
+    for(int i=0; i<10; i++) {
+        LCD.WriteAt(line1[i], 55+(22*i), 139);
     }
+    for(int i=0; i<9; i++) {
+        LCD.WriteAt(line1[i], 66+(22*i), 166);
+    }
+    for(int i=0; i<7; i++) {
+        LCD.WriteAt(line1[i], 88+(22*i), 193);
+    }
+    LCD.SetFontColor(DARKGREEN);
+    LCD.FillRectangle(55,101,42,23);
+    LCD.SetFontColor(WHITE);
+    LCD.WriteAt("OK",55+9,101+3);
+    LCD.SetFontColor(DARKORANGE);
+    LCD.FillRectangle(223,101,42,23);
+    LCD.SetFontColor(WHITE);
+    LCD.WriteAt("DEL",223+3,101+3);
+}
+*/
+
+void Scoreboard::printProfile() {
+    LCD.SetFontColor(GRAY);
+    LCD.WriteAt(profile, 130, 213);
+}
+
+void Scoreboard::newEntry(int score) {
+
+    LCD.WriteAt("Congrats!", 106, 20-10);
+    LCD.WriteAt("You are in the top 5!", 34, 42-10);
+    LCD.WriteAt("Score: ", 103, 64-10);
+    LCD.WriteAt(score, 103+72+17, 64-10);
+    printProfile();
+    char namesTemp [5][5];
+    int scoresTemp [5];
+    int index = 0;
+    while(score <= scores[index]) {
+        strcpy(namesTemp[index], names[index]);
+        scoresTemp[index] = scores[index];
+        index++;
+    }
+    strcpy(namesTemp[index], profile);
+    scoresTemp[index] = score;
+    while(index < 5) {
+        strcpy(namesTemp[index], names[index-1]);
+        scoresTemp[index] = scores[index-1];
+    }
+    for(int i = 0; i < 5; i++) {
+        strcpy(names[i], namesTemp[i]);
+        scores[i] = scoresTemp[i];
+    }
+    FEHFile *fptr = SD.FOpen("FloodIt/scores.txt","w");
+    SD.FPrintf(fptr, profile);
+    for(int i=0; i<5; i++) {
+        SD.FPrintf(fptr, "%s\t%d", names[i], scores[i]);
+    }
+    SD.FClose(fptr);
+
 }
 
