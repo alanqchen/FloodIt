@@ -2,6 +2,7 @@
 #include <FEHIO.h>
 #include <FEHUtility.h>
 #include <LCDColors.h>
+#include <math.h>
 #include "scoreboard.h"
 #include "tile.h"
 #include "grid.h"
@@ -15,12 +16,16 @@ struct gridSize_struct {
 
 typedef struct gridSize_struct gridSize;
 
+int calcMaxTries(int rows, int cols, int colors, int level) {
+    return (int)floor(25.0*((rows+cols)*colors)/((28.0)*6))+1+(int)(level/2);
+}
+
 // Helper function
-void fillSize(gridSize* sizeArray, int index, int w, int h, int numC, int maxT) {
+void fillSize(gridSize* sizeArray, int index, int w, int h, int numC) {
     sizeArray[index].width = w;
     sizeArray[index].height = h;
     sizeArray[index].colors = numC;
-    sizeArray[index].maxTries = maxT;
+    sizeArray[index].maxTries = calcMaxTries(h, w, numC, index);
 }
 
 int FloodIt(int width, int height, int numColors, int maxTries) {
@@ -48,7 +53,7 @@ int FloodIt(int width, int height, int numColors, int maxTries) {
             complete = grid.isComplete();
         }
     }
-    Sleep(5.0);
+    Sleep(1.5);
     LCD.Clear(FEHLCD::White);
     /*
     if(grid.getTries() <= grid.getMaxTries())
@@ -56,7 +61,6 @@ int FloodIt(int width, int height, int numColors, int maxTries) {
     else
         LCD.WriteLine("You Failed :(");
     */
-    Sleep(3.0);
     return grid.getTries();
 }
 
@@ -86,6 +90,22 @@ void printScoreScreen(bool won, int level, int score, Scoreboard scoreboard) {
     scoreboard.printProfile();
     while(!LCD.Touch(&x, &y));
     while(LCD.Touch(&x, &y));
+    LCD.Clear(FEHLCD::White);
+}
+
+void printHelp(Scoreboard scoreboard) {
+    float x, y;
+    LCD.Clear(FEHLCD::White);
+    LCD.SetFontColor(FEHLCD::Black);
+    LCD.WriteLine("The goal of the game is to fill the board with a single color.");
+    LCD.WriteLine("Tap any color on the grid to change the top left tile's color, and any adjacent matching tile color.");
+    LCD.WriteLine("Completing Level - 5 points.");
+    LCD.WriteLine("Extra steps - 1 point each.");
+    LCD.WriteAt("Tap to Continue",70,150);
+    scoreboard.printProfile();
+    while(!LCD.Touch(&x, &y));
+    while(LCD.Touch(&x, &y));
+    //LCD.Clear(FEHLCD::White);
 }
 
 void printMenu(Scoreboard scoreboard) {
@@ -122,18 +142,20 @@ void printMenu(Scoreboard scoreboard) {
     LCD.DrawLine(5,91,314,91);
     LCD.SetFontColor(SCARLET);
     LCD.FillRectangle(95,120,130,25);
-    LCD.SetFontColor(WHITE);
+    //LCD.SetFontColor(WHITE);
     LCD.WriteAt("Start", 125, 124);
     LCD.SetFontColor(DARKORANGE);
     LCD.FillRectangle(95,165,130,25);
     LCD.WriteAt("Scoreboard", 100, 169);
     scoreboard.printProfile();
+    LCD.SetFontColor(FEHLCD::Black);
+    LCD.WriteAt("Help", 242, 193);
 }
 
 void startMenu() {
     Sleep(1.0);
 
-    int grid_size = 5, colors = 4;
+    //int grid_size = 5, colors = 4;
     float x, y, x_trash, y_trash;
     Scoreboard scoreboard;
     bool player_won = true;
@@ -141,29 +163,29 @@ void startMenu() {
     // create grid
     gridSize sizeArray [20];
     // LEVEL 1
-    fillSize(sizeArray, 0, 3, 2, 3, 7);
+    fillSize(sizeArray, 0, 3, 2, 3);
     // LEVEL 2
-    fillSize(sizeArray, 1, 3, 3, 3, 10);
+    fillSize(sizeArray, 1, 3, 3, 3);
     // LEVEL 3
-    fillSize(sizeArray, 2, 4, 3, 3, 13);
+    fillSize(sizeArray, 2, 4, 3, 3);
     // LEVEL 4
-    fillSize(sizeArray, 3, 4, 4, 4, 17);
+    fillSize(sizeArray, 3, 4, 4, 4);
     // LEVEL 5
-    fillSize(sizeArray, 4, 5, 4, 4, 21);
+    fillSize(sizeArray, 4, 5, 4, 4);
     // LEVEL 6
-    fillSize(sizeArray, 5, 6, 4, 4, 26);
+    fillSize(sizeArray, 5, 6, 4, 4);
     // LEVEL 7
-    fillSize(sizeArray, 6, 7, 5, 4, 40);
+    fillSize(sizeArray, 6, 7, 5, 4);
     // LEVEL 8
-    fillSize(sizeArray, 7, 7, 6, 5, 48);
+    fillSize(sizeArray, 7, 7, 6, 5);
     // LEVEL 9
-    fillSize(sizeArray, 8, 8, 6, 5, 54);
+    fillSize(sizeArray, 8, 8, 6, 5);
     // LEVEL 10
-    fillSize(sizeArray, 9, 9, 6, 6, 60);
+    fillSize(sizeArray, 9, 9, 6, 6);
     // LEVEL 11
-    fillSize(sizeArray, 10, 10, 7, 7, 78);
+    fillSize(sizeArray, 10, 10, 7, 7);
     // LEVEL 12
-    fillSize(sizeArray, 11, 12, 8, 7, 100);
+    fillSize(sizeArray, 11, 12, 8, 7);
 
     //write main menu boxes and titles
     /*
@@ -180,17 +202,19 @@ void startMenu() {
         while(LCD.Touch(&x_trash, &y_trash));
 
         // if user clicks start
-        if(94 < x && x < 154 && 157 > y && y > 140) {
+        if(95 <= x && x <= 225 && 145 >= y && y >= 120) {
+            LCD.Clear(FEHLCD::White);
+            player_won = true;
             int score = 0;
             int tries;
-            int maxTries = 18;
+            //int maxTries = 18;
             int level = 0;
             while(player_won && level < 12) {
                 tries = FloodIt(sizeArray[level].width, sizeArray[level].height, sizeArray[level].colors, sizeArray[level].maxTries);
-                if(tries <= maxTries) {
+                if(tries <= sizeArray[level].maxTries) {
                     player_won = true;
                     score += 5;
-                    score += maxTries-tries;
+                    score += sizeArray[level].maxTries-tries;
                 } else
                     player_won = false;
                 level++;
@@ -207,11 +231,15 @@ void startMenu() {
             printMenu(scoreboard);
             //while(!LCD.Touch(&x, &y));
             continue;
-        } else if(94 < x && x < 210 && 170 < y && y < 187) //if user clicks scoreboard
+        } else if(95 <= x && x <= 225 && 165 <= y && y <= 190) //if user clicks scoreboard
         {
             scoreboard.print();
             printMenu(scoreboard);
             //while(!LCD.Touch(&x, &y));
+            continue;
+        } else if(x >= 242 && y >= 193) {
+            printHelp(scoreboard);
+            printMenu(scoreboard);
             continue;
         }
     }
@@ -219,6 +247,7 @@ void startMenu() {
 
 int main(void)
 {
+    LCD.Clear( FEHLCD::White );
     LCD.WriteLine( "Flood It! v1.1.0" );
     Sleep(3.0);
     srand(TimeNow());
@@ -227,9 +256,10 @@ int main(void)
     float x,y, x_trash, y_trash;
     bool quit = false;
 
-    LCD.Clear( FEHLCD::Black );
+    LCD.Clear( FEHLCD::White );
     LCD.SetFontColor( FEHLCD::White );
     startMenu();
+    /*
     while(quit != true) {
         LCD.WriteLine("Touch anywhere to play one game");
         // Wait for user touch
@@ -243,5 +273,6 @@ int main(void)
             //FloodIt(4, 4, 4);
         }
     }
+    */
     return 0;
 }

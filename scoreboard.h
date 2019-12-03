@@ -13,8 +13,8 @@ class Scoreboard {
         char* getProfile();
     private:
         void printKeyboard();
-        char profile [5];
-        char names[5][5];
+        char profile [6];
+        char names[5][6];
         int scores[5];
         int minScore;
 };

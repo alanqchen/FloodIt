@@ -61,17 +61,17 @@ bool Grid::isComplete() {
             //result = false;
     }
     int cmpColor = getTile(0, 0)->getColor();
-    LCD.WriteLine(cmpColor);
+    //LCD.WriteLine(cmpColor);
     for(int i = 0; i < height; i++) {
         for(int j = 0; j < width; j++) {
-            LCD.WriteLine(getTile(i, j)->getColor());
+            //LCD.WriteLine(getTile(i, j)->getColor());
             if(getTile(i, j)->getColor() != cmpColor) {
-                LCD.WriteLine(false);
+                //LCD.WriteLine(false);
                 return false;
             }
         }
     }
-    LCD.WriteLine(true);
+    //LCD.WriteLine(true);
     return true;
 }
 
@@ -102,7 +102,7 @@ void Grid::print() {
     for(int i = 0; i < height; i++) {
         for(int j = 0; j < width; j++) {
             LCD.SetFontColor(getTile(i, j)->getColor());
-            LCD.FillRectangle((160-(((180/height)*width)/2))+1+(j*180/height),26+(i*180/height), 180/height, 180/height); // Please work
+            LCD.FillRectangle((160-(((180/height)*width)/2))+1+(j*180/height),26+(i*180/height), 180/height, 180/height);
         }
     }
     if(tries/10 == 0)

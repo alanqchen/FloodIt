@@ -13,8 +13,19 @@
  O:\fehqt\Proteus/EWL/EWL_C/include/limits_api.h \
  O:\fehqt\Proteus/EWL/EWL_C/include/ewl_lib_ext1.h Libraries/FEHUtility.h \
  Startup/derivative.h Libraries/LCDColors.h Libraries/FEHIO.h \
- Drivers/adc16.h ..\/scoreboard.h ..\/vectorlight.h \
- O:\fehqt\Proteus/EWL/EWL_C/include/stdlib.h \
+ Drivers/adc16.h O:\fehqt\Proteus/EWL/EWL_C/include/math.h \
+ O:\fehqt\Proteus/EWL/EWL_C/include/cmath \
+ O:\fehqt\Proteus/EWL/EWL_C/include/cfloat \
+ O:\fehqt\Proteus/EWL/EWL_C/include/ewl_t.h \
+ O:\fehqt\Proteus/EWL/EWL_C/include/arm/float.ARM.h \
+ O:\fehqt\Proteus/EWL/EWL_C/include/math_api.h \
+ O:\fehqt\Proteus/EWL/EWL_C/include/ewl_misra_types.h \
+ O:\fehqt\Proteus/EWL/EWL_C/include/math_inlines.h \
+ O:\fehqt\Proteus/EWL/EWL_C/include/math_config.h \
+ O:\fehqt\Proteus/EWL/EWL_C/include/arm/math.ARM.h \
+ O:\fehqt\Proteus/EWL/EWL_C/include/cerrno \
+ O:\fehqt\Proteus/EWL/EWL_C/include/math_integral.h ..\/scoreboard.h \
+ ..\/vectorlight.h O:\fehqt\Proteus/EWL/EWL_C/include/stdlib.h \
  O:\fehqt\Proteus/EWL/EWL_C/include/cstdlib \
  O:\fehqt\Proteus/EWL/EWL_C/include/div_t.h \
  O:\fehqt\Proteus/EWL/EWL_C/include/null.h \
@@ -63,6 +74,30 @@ Libraries/LCDColors.h:
 Libraries/FEHIO.h:
 
 Drivers/adc16.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/math.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/cmath:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/cfloat:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/ewl_t.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/arm/float.ARM.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/math_api.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/ewl_misra_types.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/math_inlines.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/math_config.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/arm/math.ARM.h:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/cerrno:
+
+O:\fehqt\Proteus/EWL/EWL_C/include/math_integral.h:
 
 ..\/scoreboard.h:
 

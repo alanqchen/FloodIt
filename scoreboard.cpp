@@ -9,14 +9,21 @@
 
 
 Scoreboard::Scoreboard() {
-    FEHFile *fptr = SD.FOpen("FloodIt/scores.txt","a+");
+    FEHFile *fptr = SD.FOpen("SCORES.txt","a+");
     if(SD.FEof(fptr)) {
-        SD.FPrintf(fptr, "Guest");
+        LCD.WriteLine("File doesn't exist, filling");
+        SD.FPrintf(fptr, "Guest\n");
         for(int i=0; i<5; i++)
-            SD.FPrintf(fptr, "XXXXX\t%i", 0);
+            SD.FPrintf(fptr, "XXXXX\t%d\n", 0);
     }
-    char tempName [5];
+    char tempName [6];
     SD.FScanf(fptr, "%s", profile);
+    /*
+    if(SD.FEof(fptr)) {
+        for(int i=0; i<5; i++)
+            SD.FPrintf(fptr, "XXXXX\t%d\n", 0);
+    }
+    */
     int tempScore;
     for(int i=0; i<5; i++) {
         SD.FScanf(fptr, "%s%d", tempName, &tempScore);
@@ -91,7 +98,7 @@ void Scoreboard::newEntry(int score) {
     LCD.WriteAt("Score: ", 103, 64-10);
     LCD.WriteAt(score, 103+72+17, 64-10);
     printProfile();
-    char namesTemp [5][5];
+    char namesTemp [5][6];
     int scoresTemp [5];
     int index = 0;
     while(score <= scores[index]) {
@@ -101,20 +108,39 @@ void Scoreboard::newEntry(int score) {
     }
     strcpy(namesTemp[index], profile);
     scoresTemp[index] = score;
+    int offset;
+    if(index == 0) {
+        offset = 0;
+    } else {
+        offset = 1;
+    }
+    index++;
     while(index < 5) {
-        strcpy(namesTemp[index], names[index-1]);
-        scoresTemp[index] = scores[index-1];
+        strcpy(namesTemp[index], names[index-offset]);
+        scoresTemp[index] = scores[index-offset];
+        index++;
     }
     for(int i = 0; i < 5; i++) {
         strcpy(names[i], namesTemp[i]);
         scores[i] = scoresTemp[i];
     }
-    FEHFile *fptr = SD.FOpen("FloodIt/scores.txt","w");
-    SD.FPrintf(fptr, profile);
+    FEHFile *fptr = SD.FOpen("SCORES.txt","w");
+    SD.FPrintf(fptr, "%s\n", profile);
     for(int i=0; i<5; i++) {
-        SD.FPrintf(fptr, "%s\t%d", names[i], scores[i]);
+        SD.FPrintf(fptr, "%s\t%d\n", names[i], scores[i]);
     }
+    int min = scores[0];
+    for(int i=1; i<5; i++) {
+        if(scores[i] < min) {
+            min = scores[i];
+        }
+    }
+    minScore= min;
     SD.FClose(fptr);
-
+    float x, y;
+    LCD.WriteAt("Tap to Continue",70,150);
+    while(!LCD.Touch(&x, &y));
+    while(LCD.Touch(&x, &y));
+    LCD.Clear(FEHLCD::White);
 }
 
