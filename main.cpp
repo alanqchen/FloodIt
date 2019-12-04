@@ -19,7 +19,7 @@ typedef struct gridSize_struct gridSize; // typedef struct to make life easier
 
 // Helper function to calculate maximum tries/steps
 int calcMaxTries(int rows, int cols, int colors, int level) {
-    return (int)floor(25.0*((rows+cols)*colors)/((28.0)*6))+1+(int)(level/3.0);
+    return (int)floor(25.0*((rows+cols)*colors)/((28.0)*6))+1+(int)(level/2.0);
 }
 
 // Helper function to fill grid level structs
@@ -72,7 +72,9 @@ int FloodIt(int width, int height, int numColors, int maxTries) {
     // Clear screen
     LCD.Clear(FEHLCD::White);
     // Return the user's number of tries/steps
-    return grid.getTries();
+    int result = grid.getTries();
+    //grid.~Grid();
+    return result;
 }
 
 // Prints score screen
@@ -324,7 +326,8 @@ int main(void) {
     srand(TimeNow());
     // Clear screen
     LCD.Clear(FEHLCD::White);
-    // Goto start menu
+    // Go to start menu
+    //FloodIt(9, 6, 7, 100);
     startMenu();
 
     return 0;

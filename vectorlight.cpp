@@ -150,3 +150,9 @@ void VectorLight<Type>::vector_resize() {
     }
     return;
 }
+/*
+template <typename Type>
+VectorLight<Type>::~VectorLight() {
+    delete[] array;
+}
+*/

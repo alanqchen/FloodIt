@@ -16,10 +16,8 @@ public:
     bool isComplete(); // Check if grid is complete
     // Note: when calling updateColors, give it the pointer to the top left tile and it's color
     void updateColors(Tile* T, int startColor, int newColor); // Update grid's colors
-    // Print grid
-    void print();
-    // Clear check vector
-    void clearVect();
+    void print(); // Print grid
+    void clearVect(); // Clear check vector
 private:
     Tile** arr; // 2D array of tiles
     int width; // Width in terms of tiles

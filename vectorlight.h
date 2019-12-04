@@ -1,7 +1,8 @@
 #ifndef VECTORLIGHT_H
 #define VECTORLIGHT_H
 
-/* VECTOR LIGHTWEIGHT IMPLEMENTATION
+/*
+ * VECTOR LIGHTWEIGHT IMPLEMENTATION
  * Barebones vector functionality (think 'unbounded stack').
  * Also no C++11 features :(
  * Made by Alan Chen
@@ -20,7 +21,7 @@ public:
     Type* end(); // Give pointer to end of array
     size_t capacity(); // Give allocated size
     bool empty(); // Test whether vector is empty
-    void push_back(Type); // add to end
+    void push_back(Type value); // add to end
     Type pop_back(); // remove from back
     Type &operator[](size_t); // Returns a reference to the element at position n in the vector
     Type& at(size_t); // Returns a reference to the element at position n in the vector. Also checks if in-bounds

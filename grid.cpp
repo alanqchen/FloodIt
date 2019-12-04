@@ -76,10 +76,12 @@ bool Grid::isComplete() {
         t->setChecked(false);
     }
     int cmpColor = getTile(0, 0)->getColor();
+    /*
     // Test for early exit using check vector size
     //   (Complete grid implies check vector size is width*height)
     if(size != width*height)
         return false;
+    */
     // Loop through every tile in grid
     for(int i = 0; i < height; i++) {
         for(int j = 0; j < width; j++) {
@@ -162,3 +164,15 @@ void Grid::print() {
 void Grid::clearVect() {
     checkVect.clear();
 }
+
+/*
+Grid::~Grid() {
+    LCD.SetFontColor(FEHLCD::Black);
+    LCD.WriteLine("Loading...");
+    Sleep(0.5);
+    for(int i = 0; i < height; i++) {
+        delete[] arr[i];
+    }
+    delete[] arr;
+}
+*/
